@@ -77,6 +77,7 @@ void    print_square(t_win *window, int  color, int x, int y)
         while (++horizontal != SIZE_SQUARE)
             put_pixel(window, x + horizontal, y + vertical, color);
     }
+    put_pixel(window, x + horizontal - 1, y + vertical, add_color(0, 0, 255, 0));
 }
 
 int     move_square(int keycode, t_win *window)
@@ -96,7 +97,7 @@ int     move_square(int keycode, t_win *window)
         if (x <= 0)
             x = 0;
     }
-    else if (keycode == 2)
+    else if (keycode == 100)
     {
         x += SIZE_SQUARE;
         if (x + SIZE_SQUARE >= WIN_WIDTH)
@@ -129,7 +130,7 @@ int main(void)
     window.address = mlx_get_data_addr(window.img, &window.pixel_bits, &window.line_length, &window.endian);
     print_square(&window, add_color(0, 255, 0, 0), (WIN_WIDTH / 2) - (SIZE_SQUARE / 2), (WIN_HEIGHT / 2) - (SIZE_SQUARE / 2));
     mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
-    mlx_hook(window.win, 2, 0L, move_square, &window);
+    mlx_hook(window.win, 2, 1L<<0, move_square, &window);
     //mlx_loop_hook(window.mlx, next_frame, &window);
     mlx_loop(window.mlx);
 }
