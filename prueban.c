@@ -126,6 +126,12 @@ int close_win(t_data *mlx)
     exit(EXIT_SUCCESS);
 }
 
+int mouse_pos(int x, int y, t_data *mlx)
+{
+    ft_printf("position: x=%d, y=%d\n", x, y);
+    return (0);
+}
+
 int main (void)
 {
     t_data mlx;
@@ -140,5 +146,6 @@ int main (void)
     mlx_hook(mlx.win, 2, 1L<<0, button_opt, &mlx);
     mlx_hook(mlx.win, 4, 1L<<2, click, &mlx);
     mlx_hook(mlx.win, 17, 0L, close_win, &mlx);
+    mlx_hook(mlx.win, 06, 1L<<6, mouse_pos, &mlx);
     mlx_loop(mlx.mlx);
 }

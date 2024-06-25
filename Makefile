@@ -7,7 +7,7 @@ CFLAGS = -Iincludes -Imlx_linux
 
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -Llibft -lftprintf -lXext -lX11 -lm -lz
 
-SRC = prueban.c
+SRC = prueban4.c
 
 OBJ = $(SRC:.c=.o)
 
