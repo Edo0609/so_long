@@ -14,7 +14,8 @@ void readmap(char *path)
 {
     t_map map;
 
-    map.fd = 
+    map.fd = open(path, O_RDONLY);
+    
 }
 
 int main(int ac, char **av)
