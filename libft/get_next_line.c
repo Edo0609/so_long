@@ -31,13 +31,13 @@ char	*find_line(int fd, char *storage)
 	if (!r_buf)
 		return (ft_free(storage));
 	bytes_read = 1;
-	while (!ft_strchr(storage, '\n') && bytes_read != 0)
+	while (!ft_strchr_gnl(storage, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, r_buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (free(r_buf), ft_free(storage));
 		r_buf[bytes_read] = '\0';
-		storage = ft_strjoin(storage, r_buf);
+		storage = ft_strjoin_gnl(storage, r_buf);
 		if (!storage)
 			return (free(r_buf), NULL);
 	}
@@ -79,11 +79,11 @@ char	*update_storage(char *storage)
 
 	i = 0;
 	j = 0;
-	if (!ft_strchr(storage, '\n'))
+	if (!ft_strchr_gnl(storage, '\n'))
 		return (ft_free(storage));
 	while (storage[i] != '\n')
 		i++;
-	new_storage = (char *)malloc(sizeof(char) * (ft_strlen(storage) - i + 1));
+	new_storage = (char *)malloc(sizeof(char) * (ft_strlen_gnl(storage) - i + 1));
 	if (!new_storage)
 		return (ft_free(storage));
 	i++;

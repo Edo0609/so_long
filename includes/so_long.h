@@ -10,12 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include <mlx.h>
+# include <errno.h>
+# include <stdio.h>
+
+typedef struct s_map
+{
+    int fd;
+    char **map;
+    int width;
+    int height;
+    int collectable;
+    int exit;
+    int player;
+}   t_map;
+
+void get_dimensions(t_map *map);
+void readmap(char *path);
+void error(const char *str);
+
 
 #endif

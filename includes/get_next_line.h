@@ -26,9 +26,9 @@ char	*find_line(int fd, char *storage);
 char	*line_get(char *storage);
 char	*update_storage(char *storage);
 
-size_t	ft_strlen(char *s);
-char	*ft_strdup(char *s1);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr(char	*s, char c);
+size_t	ft_strlen_gnl(char *s);
+char	*ft_strdup_gnl(char *s1);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strchr_gnl(char	*s, char c);
 char	*ft_free(char *ptr);
 #endif
