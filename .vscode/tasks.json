@@ -8,7 +8,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g3",
-                "I${workspaceFolder}/includes",
+                "-I${workspaceFolder}/includes",
                 "-I${workspaceFolder}/mlx_linux",
                 "${workspaceFolder}/*.c",
                 "-L${workspaceFolder}/mlx_linux",

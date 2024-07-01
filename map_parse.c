@@ -2,7 +2,7 @@
 
 void error(const char *str)
 {
-    perror(str);
+    ft_printf("Error: %s\n", str);
     exit(EXIT_FAILURE);
 }
 
@@ -12,9 +12,9 @@ void get_dimensions(t_map *map)
 
     line = get_next_line(map->fd);
     map->height = 0;
-    map->width = ft_strlen(line);
     if (!line)
         error("map is empty");
+    map->width = ft_strlen(line);
     while (line)
     {
         line = get_next_line(map->fd);
@@ -49,7 +49,7 @@ int main(int ac, char **av)
 {
     if (ac != 2)
     {
-        ft_printf("invalid format. Format: ./so_long [MAP]");
+        error("invalid format. Format: ./so_long [MAP]");
         return (1);
     }
         readmap(av[1]);
