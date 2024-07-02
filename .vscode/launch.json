@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}/so_long",
             "args": [
-                "maps/empty.ber"
+                "maps/not_walled.ber"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

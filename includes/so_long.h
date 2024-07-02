@@ -32,8 +32,8 @@ typedef struct s_map
 }   t_map;
 
 void get_dimensions(t_map *map);
-void readmap(char *path);
-void error(const char *str);
+void readmap(char *path, t_map *map);
+void error(const char *str, t_map *map);
 
 
 #endif
