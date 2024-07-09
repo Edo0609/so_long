@@ -34,6 +34,13 @@ typedef struct s_map
 void get_dimensions(t_map *map);
 void readmap(char *path, t_map *map);
 void error(const char *str, t_map *map);
+void init_map(t_map *map);
+void clean_all(t_map *map);
+void check_rectangle(t_map *map, char *line);
+void check_line(char *line, char *chars, t_map *map);
+void check_borders_and_tiles(t_map *map);
+void print_map(t_map *map);
+
 
 
 #endif
