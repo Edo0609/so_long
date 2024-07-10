@@ -10,6 +10,13 @@ void clean_all(t_map *map)
             free(map->map[i]);
         free(map->map);
     }
+	if (map->copy)
+    {
+        i = -1;
+        while (map->copy[++i])
+            free(map->copy[i]);
+        free(map->copy);
+    }
 }
 
 void error(const char *str, t_map *map)
@@ -126,13 +133,13 @@ void check_borders_and_tiles(t_map *map)
     }
 }
 
-void print_map(t_map *map)
+void print_map(char **map)
 {
     int i;
 
     i = -1;
-    while(map->map[++i])
-        ft_printf("%s\n", map->map[i]);
+    while(map[++i])
+        ft_printf("%s\n", map[i]);
 }
 
 void init_map(t_map *map)
@@ -140,6 +147,89 @@ void init_map(t_map *map)
     map->height = 0;
     map->width = 0;
     map->map = NULL;
+	map->copy = NULL;
+	map->collectable = 0;
+	map->exit = 0;
+	map->player = 0;
+}
+
+void check_chars(t_map *map, char *line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == 'C')
+			map->collectable++;
+		else if (line[i] == 'P')
+			map->player++;
+		else if (line[i] == 'E')
+			map->exit++;
+	}
+	if (map->copy)
+	{
+		i = -1;
+		while (map->copy[++i])
+		{
+			if (ft_strchr(map->copy[i], 'C'))
+				error("theres at least one unreachable collectable!", map);
+			if (ft_strchr(map->copy[i], 'E'))
+				error("unreachable exit!", map);
+		}
+	}
+}
+
+void fill_map(t_map *map)
+{
+	int i;
+	int j;
+	
+	j = -1;
+	while (map->copy[++j])
+	{
+		i = -1;
+		while (map->copy[j][++i])
+		{
+			if (map->copy[j][i] == '0' || map->copy[j][i] == 'C'
+			|| map->copy[j][i] == 'E')
+			{
+				if (map->copy[j][i + 1] == 'P' || map->copy[j][i - 1] == 'P' ||
+				map->copy[j + 1][i] == 'P' || map->copy[j - 1][i] == 'P')
+				{
+					map->copy[j][i] = 'P';
+					fill_map(map);
+				}
+			}
+		}
+	}
+}
+
+void valid_check(t_map *map)
+{
+    int i;
+	int c;
+	int e;
+
+    i = -1;
+    while(map->map[++i])
+		check_chars(map, map->map[i]);
+	if (map->player > 1 || map->player == 0)
+		error("there must be exactly one player!", map);
+	if (map->exit > 1 || map->exit == 0)
+		error("there must be exactly one exit!", map);
+	if (map->collectable < 1)
+		error("there must be at least one collectable!", map);
+	map->copy = (char **)malloc(sizeof(char *) * (map->height + 1));
+	i = -1;
+	while (map->map[++i])
+		map->copy[i] = ft_strdup(map->map[i]);
+		map->copy[i] = '\0';
+	c = map->collectable;
+	e = map->exit;
+	fill_map(map);
+	check_chars(map, "");
+	print_map(map->copy);
 }
 
 int main(int ac, char **av)
@@ -155,7 +245,8 @@ int main(int ac, char **av)
         ft_printf("for leaks, use the command: valgrind --leak-check=full --show-leak-kinds=all ./so_long %s\n", av[1]);
         readmap(av[1], &map);
         check_borders_and_tiles(&map);
-        print_map(&map);
+        print_map(map.map);
+        valid_check(&map);
         clean_all(&map);
     return (0);
 }

@@ -24,6 +24,7 @@ typedef struct s_map
 {
     int fd;
     char **map;
+    char **copy;
     int width;
     int height;
     int collectable;
@@ -39,7 +40,10 @@ void clean_all(t_map *map);
 void check_rectangle(t_map *map, char *line);
 void check_line(char *line, char *chars, t_map *map);
 void check_borders_and_tiles(t_map *map);
-void print_map(t_map *map);
+void print_map(char **map);
+void valid_check(t_map *map);
+void check_chars(t_map *map, char *line);
+void fill_map(t_map *map);
 
 
 
