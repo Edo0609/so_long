@@ -20,6 +20,8 @@
 # include <errno.h>
 # include <stdio.h>
 
+# define SIZE 128
+
 typedef struct s_map
 {
     int fd;
@@ -32,11 +34,33 @@ typedef struct s_map
     int player;
 }   t_map;
 
+typedef struct s_gdata
+{
+    void    *mlx;
+    void    *win;
+
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     ll;
+    int     endian;
+
+    void    *t_player;
+    void    *t_floor;
+    void    *t_wall;
+    void    *t_exit;
+
+    int x_pos;
+    int y_pos;
+
+    t_map map;
+}   t_gdata;
+
 void get_dimensions(t_map *map);
 void readmap(char *path, t_map *map);
-void error(const char *str, t_map *map);
+void map_error(const char *str, t_map *map);
 void init_map(t_map *map);
-void clean_all(t_map *map);
+void clean_maps(t_map *map);
 void check_rectangle(t_map *map, char *line);
 void check_line(char *line, char *chars, t_map *map);
 void check_borders_and_tiles(t_map *map);

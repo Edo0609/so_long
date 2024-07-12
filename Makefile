@@ -7,7 +7,7 @@ CFLAGS = -Iincludes -Imlx_linux
 
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -Llibft -lftprintf -lXext -lX11 -lm -lz -g3
 
-SRC = map_parse.c
+SRC = map_parse.c rendering.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -18,10 +18,6 @@ char	*ft_free(char *ptr)
 	return (NULL);
 }
 
-/*I wanted to initialize the "storage" variable in this function
- * however it gives me a "NULL_CHECK_KO" with paco --strict.
- * the only solution I found to it is to do it inside the strjoin
- * function instead, why?*/
 char	*find_line(int fd, char *storage)
 {
 	char	*r_buf;
@@ -90,7 +86,8 @@ char	*update_storage(char *storage)
 	while (storage[i] != '\0')
 		new_storage[j++] = storage[i++];
 	new_storage[j] = '\0';
-	return (free(storage), new_storage);
+	free(storage);
+	return (new_storage);
 }
 
 char	*get_next_line(int fd)

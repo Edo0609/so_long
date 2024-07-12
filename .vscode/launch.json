@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}/so_long",
             "args": [
-                "maps/not_walled.ber"
+                "maps/unreachable_exit.ber"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
