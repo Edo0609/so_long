@@ -49,6 +49,7 @@ typedef struct s_gdata
     void    *t_floor;
     void    *t_wall;
     void    *t_exit;
+    void    *t_collect;
 
     int x_pos;
     int y_pos;

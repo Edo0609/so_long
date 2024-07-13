@@ -26,6 +26,10 @@ void init_textures(t_gdata *game)
     &i_w, &i_h);
     if (i_w != SIZE || i_h != SIZE)
         game_error("textures are not the right size!", game);
+    game->t_collect = mlx_xpm_file_to_image(game->mlx, "maps/collectable.xpm", 
+    &i_w, &i_h);
+    if (i_w != SIZE || i_h != SIZE)
+        game_error("textures are not the right size!", game);
 }
 
 void init_game(t_gdata *game)
