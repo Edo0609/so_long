@@ -10,6 +10,7 @@ void init_textures(t_gdata *game)
     int i_w;
     int i_h;
 
+    usleep(50000);
     game->t_exit = mlx_xpm_file_to_image(game->mlx, "textures/exit_c.xpm", 
     &i_w, &i_h);
     ft_printf("width = %d, height = %d", i_w, i_h);
@@ -44,21 +45,16 @@ void load_map(t_gdata *game)
         i = -1;
         while (game->map.map[j][++i])
         {
-            if (game->map.map[j][i] = 'P')
-                mlx_put_image_to_window(game->mlx, game->win, game->t_player, 
-                i * SIZE, j * SIZE);
-            else if (game->map.map[j][i] = 'E')
-                mlx_put_image_to_window(game->mlx, game->win, game->t_exit, 
-                i * SIZE, j * SIZE);
-            else if (game->map.map[j][i] = 'C')
-                mlx_put_image_to_window(game->mlx, game->win, game->t_collect, 
-                i * SIZE, j * SIZE);
-            else if (game->map.map[j][i] = '1')
-                mlx_put_image_to_window(game->mlx, game->win, game->t_wall, 
-                i * SIZE, j * SIZE);
+            if (game->map.map[j][i] == 'P')
+                mlx_put_image_to_window(game->mlx, game->win, game->t_player, i * SIZE, j * SIZE);
+            else if (game->map.map[j][i] == 'E')
+                mlx_put_image_to_window(game->mlx, game->win, game->t_exit, i * SIZE, j * SIZE);
+            else if (game->map.map[j][i] == 'C')
+                mlx_put_image_to_window(game->mlx, game->win, game->t_collect, i * SIZE, j * SIZE);
+            else if (game->map.map[j][i] == '1')
+                mlx_put_image_to_window(game->mlx, game->win, game->t_wall, i * SIZE, j * SIZE);
             else
-                mlx_put_image_to_window(game->mlx, game->win, game->t_floor, 
-                i * SIZE, j * SIZE);
+                mlx_put_image_to_window(game->mlx, game->win, game->t_floor, i * SIZE, j * SIZE);
         }
     }
 }
@@ -85,12 +81,12 @@ int main(int ac, char **av)
 {
     t_gdata  game;
 
+    init_map(&game.map);
     if (ac != 2)
     {
         map_error("invalid format. Format: ./so_long [MAP]", &game.map);
         return (1);
     }
-    init_map(&game.map);
     ft_printf("for leaks, use the command: valgrind --leak-check=full --show-leak-kinds=all ./so_long %s\n", av[1]);
     readmap(av[1], &game.map);
     check_borders_and_tiles(&game.map);

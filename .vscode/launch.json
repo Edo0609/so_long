@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}/so_long",
             "args": [
-                "maps/unreachable_exit.ber"
+                "maps/weird.ber.ber"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
