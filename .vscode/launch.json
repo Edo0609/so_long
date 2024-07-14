@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}/so_long",
             "args": [
-                "maps/weird.ber.ber"
+                "maps/easy.ber"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

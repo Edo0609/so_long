@@ -38,24 +38,24 @@ void init_textures(t_gdata *game)
     game->t_exit = mlx_xpm_file_to_image(game->mlx, "textures/exit_c.xpm", 
     &i_w, &i_h);
     ft_printf("width = %d, height = %d", i_w, i_h);
-    // if (i_w != SIZE || i_h != SIZE)
-        // game_error("textures are not the right size!", game);
+    if (i_w != SIZE || i_h != SIZE || !game->t_exit)
+        ft_printf("fuck");
     game->t_player = mlx_xpm_file_to_image(game->mlx, "textures/player.xpm", 
     &i_w, &i_h);
-    // if (i_w != SIZE || i_h != SIZE)
-        // game_error("textures are not the right size!", game);
+    if (i_w != SIZE || i_h != SIZE || !game->t_player)
+        ft_printf("fuck");
     game->t_floor = mlx_xpm_file_to_image(game->mlx, "textures/floor.xpm", 
     &i_w, &i_h);
-    // if (i_w != SIZE || i_h != SIZE)
-        // game_error("textures are not the right size!", game);
+    if (i_w != SIZE || i_h != SIZE || !game->t_floor)
+        ft_printf("fuck");
     game->t_wall = mlx_xpm_file_to_image(game->mlx, "textures/wall.xpm", 
     &i_w, &i_h);
-    // if (i_w != SIZE || i_h != SIZE)
-        // game_error("textures are not the right size!", game);
+    if (i_w != SIZE || i_h != SIZE || !game->t_wall)
+        ft_printf("fuck");
     game->t_collect = mlx_xpm_file_to_image(game->mlx, "textures/collectable.xpm", 
     &i_w, &i_h);
-    // if (i_w != SIZE || i_h != SIZE)
-        // game_error("textures are not the right size!", game);
+    if (i_w != SIZE || i_h != SIZE || !game->t_collect)
+        ft_printf("fuck");
 }
 
 void make_map(t_gdata *game)
@@ -69,6 +69,7 @@ void make_map(t_gdata *game)
         i = -1;
         while (++i < 5)
         {
+            usleep(50000);
             if (i == 0)
                 mlx_put_image_to_window(game->mlx, game->win, game->t_player, i * SIZE, j * SIZE);
             else if (i == 1)
@@ -83,6 +84,35 @@ void make_map(t_gdata *game)
     }
 }
 
+void clean_img(t_gdata *game)
+{
+    if (game->t_player)
+        mlx_destroy_image(game->mlx, game->t_player);
+    if (game->t_exit)
+        mlx_destroy_image(game->mlx, game->t_exit);
+    if (game->t_collect)
+        mlx_destroy_image(game->mlx, game->t_collect);
+    if (game->t_floor)
+        mlx_destroy_image(game->mlx, game->t_floor);
+    if (game->t_wall)
+        mlx_destroy_image(game->mlx, game->t_wall);
+}
+
+int close_game(int key, t_gdata *game)
+{
+    ft_printf(" HEYYYYYYYYYY %d\n", key);
+    if (key == 65307)
+    {
+        mlx_destroy_window(game->mlx, game->win);
+        clean_img(game);
+        mlx_loop_end(game->mlx);
+        mlx_destroy_display(game->mlx);
+        free(game->mlx);
+    }
+    exit(EXIT_SUCCESS);
+    return (0);
+}
+
 void init_game(t_gdata *game)
 {
     int width;
@@ -91,13 +121,13 @@ void init_game(t_gdata *game)
     width = 5 * SIZE;
     height = 2 * SIZE;
     game->mlx = mlx_init();
+    usleep(50000);
     game->win = mlx_new_window(game->mlx, width, height, "so_long");
-    game->img = mlx_new_image(game->mlx, width, height);
-    game->addr = mlx_get_data_addr(game->img, &game->bpp, 
-    &game->ll, &game->endian);
+    usleep(50000);
     init_textures(game);
     //load_map(game);
     make_map(game);
+    mlx_hook(game->win, 02, 1L<<0, close_game, game);
     mlx_loop(game->mlx);
 }
 

@@ -21,6 +21,15 @@
 # include <stdio.h>
 
 # define SIZE 128
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define UP 65362
+# define LEFT 65361
+# define DOWN 65364
+# define RIGHT 65363
+# define ESC 65307
 
 typedef struct s_map
 {
@@ -39,12 +48,6 @@ typedef struct s_gdata
     void    *mlx;
     void    *win;
 
-    void    *img;
-    char    *addr;
-    int     bpp;
-    int     ll;
-    int     endian;
-
     void    *t_player;
     void    *t_floor;
     void    *t_wall;
@@ -53,6 +56,10 @@ typedef struct s_gdata
 
     int x_pos;
     int y_pos;
+    int c;
+    int moves;
+    int exit_x;
+    int exit_y;
 
     t_map map;
 }   t_gdata;

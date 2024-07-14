@@ -25,7 +25,6 @@ void map_error(const char *str, t_map *map)
     if (map->fd != -1)
         close(map->fd);
     clean_maps(map);
-    ft_printf("%d", map->fd);
     exit(EXIT_FAILURE);
 }
 
