@@ -67,8 +67,8 @@ void fill_map(t_map *map)
 void valid_check(t_map *map)
 {
     int i;
-	int c;
-	int e;
+	//int c;
+	//int e;
 
     i = -1;
     while(map->map[++i])
@@ -83,9 +83,9 @@ void valid_check(t_map *map)
 	i = -1;
 	while (map->map[++i])
 		map->copy[i] = ft_strdup(map->map[i]);
-		map->copy[i] = '\0';
-	c = map->collectable;
-	e = map->exit;
+	map->copy[i][0] = '\0';
+	//c = map->collectable;
+	//e = map->exit;
 	fill_map(map);
 	check_chars(map, "");
 	print_map(map->copy);
@@ -94,7 +94,6 @@ void valid_check(t_map *map)
 void get_dimensions(t_map *map)
 {
     char *line;
-    char *aux;
 
     line = get_next_line(map->fd);
     if (!line)
@@ -103,8 +102,9 @@ void get_dimensions(t_map *map)
         map->width = ft_strlen(line) - 1;
     else
         map->width = ft_strlen(line);
-    check_rectangle(map, aux, line);
-    if (map->width < 3 || map->height < 3)
+    check_rectangle(map, "", line);
+    if ((map->width < 3 && map->height > 2) ||
+     (map->height < 3 && map->width > 2))
         map_error("Map is too small!", map);
     map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
     map->map[map->height] = '\0';
@@ -113,7 +113,7 @@ void get_dimensions(t_map *map)
 
 void readmap(char *path, t_map *map)
 {
-    int i;
+    size_t i;
     char *newstr;
     char *line;
 

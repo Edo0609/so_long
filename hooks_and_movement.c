@@ -17,7 +17,7 @@ void check_movement(int new_x, int new_y, t_gdata *game)
     if (game->map.map[new_y][new_x] != '1')
     {
 		if (game->map.map[new_y][new_x] != 'E' ||
-		game->map.map[new_y][new_x] == 'E' && game->c == 0)
+		(game->map.map[new_y][new_x] == 'E' && game->c == 0))
 		{
 		ft_printf("Move Counter: %d\n", ++game->moves);
 		if (game->map.map[new_y][new_x] == 'E' && game->c == 0)

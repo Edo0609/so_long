@@ -38,8 +38,8 @@ typedef struct s_map
     int fd;
     char **map;
     char **copy;
-    int width;
-    int height;
+    size_t width;
+    size_t height;
     int collectable;
     int exit;
     int player;

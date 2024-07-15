@@ -23,6 +23,25 @@ void init_map(t_map *map)
 	map->player = 0;
 }
 
+void init_game_to_null(t_gdata *game)
+{
+    game->mlx = NULL;
+    game->win = NULL;
+
+    game->t_player = NULL;
+    game->t_floor = NULL;
+    game->t_wall = NULL;
+    game->t_exit = NULL;
+    game->t_collect = NULL;
+
+    game->x_pos = 0;
+    game->y_pos = 0;
+    game->c = game->map.collectable;
+    game->moves = 0;
+    game->exit_x = 0;
+    game->exit_y = 0;
+}
+
 void init_game(t_gdata *game)
 {
     int width;
@@ -30,10 +49,9 @@ void init_game(t_gdata *game)
 
     width = game->map.width * SIZE;
     height = game->map.height * SIZE;
+    init_game_to_null(game);
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, width, height, "so_long");
-    game->c = game->map.collectable;
-	game->moves = 0;
     init_textures(game);
     load_map(game);
     mlx_hook(game->win, 02, 1L<<0, keypress, game);

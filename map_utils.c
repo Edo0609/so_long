@@ -67,7 +67,7 @@ void check_line(char *line, char *chars, t_map *map)
 
 void check_borders_and_tiles(t_map *map)
 {
-    int i;
+    size_t i;
 
     i = 0;
 

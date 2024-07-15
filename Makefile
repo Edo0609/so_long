@@ -4,9 +4,11 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra -Iincludes -Imlx_linux
 
-MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -Llibft -lftprintf -lXext -lX11 -lm -lz -g3
+MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -Llibft
+MLXFLAGS += -lftprintf -lXext -lX11 -lm -lz -g3
 
-SRC = rendering.c map_parse.c
+SRC = check_map.c game_over.c hooks_and_movement.c load_textures.c \
+	  map_utils.c so_long.c
 
 OBJ = $(SRC:.c=.o)
 

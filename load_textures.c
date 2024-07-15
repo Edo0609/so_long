@@ -27,8 +27,6 @@ void load_texture(void **texture, char *path, t_gdata *game)
 
 void init_textures(t_gdata *game)
 {
-    int i_w;
-    int i_h;
 
     load_texture(&game->t_player, "textures/player.xpm", game);
     load_texture(&game->t_collect, "textures/collectable.xpm", game);
