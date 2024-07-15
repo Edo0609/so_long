@@ -68,8 +68,9 @@ void get_dimensions(t_map *map);
 void readmap(char *path, t_map *map);
 void map_error(const char *str, t_map *map);
 void init_map(t_map *map);
+
 void clean_maps(t_map *map);
-void check_rectangle(t_map *map, char *line);
+void check_rectangle(t_map *map, char *aux, char *line);
 void check_line(char *line, char *chars, t_map *map);
 void check_borders_and_tiles(t_map *map);
 void print_map(char **map);
@@ -77,6 +78,17 @@ void valid_check(t_map *map);
 void check_chars(t_map *map, char *line);
 void fill_map(t_map *map);
 
+
+void init_game(t_gdata *game);
+int keypress(int key, t_gdata *game);
+void check_movement(int new_x, int new_y, t_gdata *game);
+void load_map(t_gdata *game);
+void put_image(int x, int y, char texture, t_gdata *game);
+void init_textures(t_gdata *game);
+void load_texture(void **texture, char *path, t_gdata *game);
+void end_game(char *str, int status, t_gdata *game);
+void destroy_textures(t_gdata *game);
+int close_win(t_gdata *game);
 
 
 #endif
