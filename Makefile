@@ -2,13 +2,11 @@ NAME = so_long
 
 CC = gcc
 
-#CFLAGS = -Wall -Werror -Wextra -Iincludes -Imlx_linux
-CFLAGS = -Iincludes -Imlx_linux
+CFLAGS = -Wall -Werror -Wextra -Iincludes -Imlx_linux
 
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -Llibft -lftprintf -lXext -lX11 -lm -lz -g3
 
 SRC = rendering.c map_parse.c
-#SRC = prueba_imagenes.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -20,7 +20,7 @@ void load_texture(void **texture, char *path, t_gdata *game)
     *texture = mlx_xpm_file_to_image(game->mlx, path, 
     &i_w, &i_h);
     if (i_w != SIZE || i_h != SIZE)
-        end_game("one or more textures are not the right size!", EXIT_FAILURE, game);
+        end_game("invalid size for one or more textures!", EXIT_FAILURE, game);
     if (!*texture)
         end_game("Failed loading texture.", EXIT_FAILURE, game);
 }
@@ -30,7 +30,6 @@ void init_textures(t_gdata *game)
     int i_w;
     int i_h;
 
-    usleep(50000);
     load_texture(&game->t_player, "textures/player.xpm", game);
     load_texture(&game->t_collect, "textures/collectable.xpm", game);
     load_texture(&game->t_exit, "textures/exit_c.xpm", game);
