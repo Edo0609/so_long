@@ -31,10 +31,8 @@ void check_chars(t_map *map, char *line)
 		i = -1;
 		while (map->copy[++i])
 		{
-			if (ft_strchr(map->copy[i], 'C'))
-				map_error("theres at least one unreachable collectable!", map);
-			if (ft_strchr(map->copy[i], 'E'))
-				map_error("unreachable exit!", map);
+			if (ft_strchr(map->copy[i], 'C') || ft_strchr(map->copy[i], 'E'))
+				map_error("The map is unbeatable!", map);
 		}
 	}
 }
@@ -51,11 +49,13 @@ void fill_map(t_map *map)
 		while (map->copy[j][++i])
 		{
 			if (map->copy[j][i] == '0' || map->copy[j][i] == 'C'
-			|| map->copy[j][i] == 'E')
+			|| (map->copy[j][i] == 'E' && map->copy_collect == 0))
 			{
 				if (map->copy[j][i + 1] == 'P' || map->copy[j][i - 1] == 'P' ||
 				map->copy[j + 1][i] == 'P' || map->copy[j - 1][i] == 'P')
 				{
+					if (map->copy[j][i] == 'C')
+						map->copy_collect--;
 					map->copy[j][i] = 'P';
 					fill_map(map);
 				}
@@ -67,8 +67,6 @@ void fill_map(t_map *map)
 void valid_check(t_map *map)
 {
     int i;
-	//int c;
-	//int e;
 
     i = -1;
     while(map->map[++i])
@@ -83,12 +81,10 @@ void valid_check(t_map *map)
 	i = -1;
 	while (map->map[++i])
 		map->copy[i] = ft_strdup(map->map[i]);
-	map->copy[i][0] = '\0';
-	//c = map->collectable;
-	//e = map->exit;
+	map->copy[i] = NULL;
+	map->copy_collect = map->collectable;
 	fill_map(map);
 	check_chars(map, "");
-	print_map(map->copy);
 }
 
 void get_dimensions(t_map *map)
@@ -97,7 +93,12 @@ void get_dimensions(t_map *map)
 
     line = get_next_line(map->fd);
     if (!line)
-        map_error("map is empty", map);
+		map_error("map is empty", map);
+	while (line[0] == '\n')
+	{
+		free(line);
+		line = get_next_line(map->fd);
+	}
     if (ft_strchr(line, '\n'))
         map->width = ft_strlen(line) - 1;
     else
@@ -123,14 +124,18 @@ void readmap(char *path, t_map *map)
     newstr = ft_strrchr(path, '.');
     if (ft_strncmp(newstr, ".ber", 5) != 0)
         map_error("Bad extension. Maps should have \".ber\" extension", map);
-    i = -1;
+    i = 0;
     get_dimensions(map);
     map->fd = open(path, O_RDONLY);
-    while (++i < map->height)
+	line = get_next_line(map->fd);
+	map->map[i++] = ft_substr(line, 0, map->width);
+    while (line || i < map->height)
     {
-        line = get_next_line(map->fd);
-        map->map[i] = ft_substr(line, 0, map->width);
         free(line);
+        line = get_next_line(map->fd);
+		if (i < map->height)
+        	map->map[i] = ft_substr(line, 0, map->width);
+		i++;
     }
     close(map->fd);
 }

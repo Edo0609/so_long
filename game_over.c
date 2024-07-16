@@ -60,7 +60,6 @@ void end_game(char *str, int status, t_gdata *game)
         mlx_destroy_window(game->mlx, game->win);
     destroy_textures(game);
     clean_maps(&game->map);
-    mlx_loop_end(game->mlx);
     if (game->mlx)
     {
         mlx_destroy_display(game->mlx);

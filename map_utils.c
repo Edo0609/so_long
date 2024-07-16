@@ -34,7 +34,8 @@ void check_rectangle(t_map *map, char *aux, char *line)
                 free(aux);
                 map_error("map is not rectangular", map);
             }
-            free(aux);
+            if (aux)
+                free(aux);
         }
         map->height++;
     }

@@ -17,6 +17,8 @@ void load_texture(void **texture, char *path, t_gdata *game)
     int i_w;
     int i_h;
 
+    i_w = 0;
+    i_h = 0;
     *texture = mlx_xpm_file_to_image(game->mlx, path, 
     &i_w, &i_h);
     if (i_w != SIZE || i_h != SIZE)

@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}/so_long",
             "args": [
-                "maps/easy.ber"
+                "maps/exit_blocking.ber"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

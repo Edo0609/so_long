@@ -51,8 +51,12 @@ void init_game(t_gdata *game)
     height = game->map.height * SIZE;
     init_game_to_null(game);
     game->mlx = mlx_init();
-    game->win = mlx_new_window(game->mlx, width, height, "so_long");
+    if (!game->mlx)
+        end_game("Failed loading mlx interface.", EXIT_FAILURE, game);
     init_textures(game);
+    game->win = mlx_new_window(game->mlx, width, height, "so_long");
+    if (!game->win || width <= 0 || height <= 0)
+        end_game("Failed creating window.", EXIT_FAILURE, game);
     load_map(game);
     mlx_hook(game->win, 02, 1L<<0, keypress, game);
     mlx_hook(game->win, 17, 1L<<17, close_win, game);
@@ -71,6 +75,7 @@ int main(int ac, char **av)
     init_map(&game.map);
     readmap(av[1], &game.map);
     check_borders_and_tiles(&game.map);
+    ft_printf("Map visualization:\n");
     print_map(game.map.map);
     valid_check(&game.map);
     init_game(&game);

@@ -41,6 +41,7 @@ typedef struct s_map
     size_t width;
     size_t height;
     int collectable;
+    int copy_collect;
     int exit;
     int player;
 }   t_map;
