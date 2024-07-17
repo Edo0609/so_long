@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}/so_long",
             "args": [
-                "maps/exit_blocking.ber"
+                "maps/nl_all.ber"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

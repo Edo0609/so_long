@@ -35,65 +35,66 @@
 
 typedef struct s_map
 {
-    int fd;
-    char **map;
-    char **copy;
-    size_t width;
-    size_t height;
-    int collectable;
-    int copy_collect;
-    int exit;
-    int player;
-}   t_map;
+	int		fd;
+	char	**map;
+	char	**copy;
+	size_t	width;
+	size_t	height;
+	size_t	start;
+	int		collectable;
+	int		copy_collect;
+	int		exit;
+	int		player;
+}	t_map;
 
 typedef struct s_gdata
 {
-    void    *mlx;
-    void    *win;
+	void	*mlx;
+	void	*win;
 
-    void    *t_player;
-    void    *t_floor;
-    void    *t_wall;
-    void    *t_exit;
-    void    *t_collect;
+	void	*t_player;
+	void	*t_floor;
+	void	*t_wall;
+	void	*t_exit;
+	void	*t_collect;
 
-    int x_pos;
-    int y_pos;
-    int c;
-    int moves;
-    int exit_x;
-    int exit_y;
+	int		x_pos;
+	int		y_pos;
+	int		c;
+	int		moves;
+	int		exit_x;
+	int		exit_y;
 
-    t_map map;
-}   t_gdata;
+	t_map	map;
+}	t_gdata;
 
-void clean_maps(t_map *map);
-void map_error(const char *str, t_map *map);
-void end_game(char *str, int status, t_gdata *game);
-void destroy_textures(t_gdata *game);
+void	clean_maps(t_map *map);
+void	map_error(const char *str, t_map *map);
+void	end_game(char *str, int status, t_gdata *game);
+void	destroy_textures(t_gdata *game);
 
-void check_rectangle(t_map *map, char *aux, char *line);
-void check_line(char *line, char *chars, t_map *map);
-void check_borders_and_tiles(t_map *map);
-void print_map(char **map);
+void	check_rectangle(t_map *map, char *aux, char *line);
+void	check_line(char *line, char *chars, t_map *map);
+void	check_borders_and_tiles(t_map *map);
+void	print_map(char **map);
+void	free_gnl(char **line, t_map *map);
 
-void get_dimensions(t_map *map);
-void readmap(char *path, t_map *map);
-void check_chars(t_map *map, char *line);
-void valid_check(t_map *map);
-void fill_map(t_map *map);
+void	get_dimensions(t_map *map);
+void	readmap(char *path, t_map *map);
+void	check_chars(t_map *map, char *line);
+void	valid_check(t_map *map);
+void	fill_map(t_map *map);
 
-void init_game(t_gdata *game);
-void init_map(t_map *map);
+void	init_game(t_gdata *game);
+void	init_map(t_map *map);
 
-int keypress(int key, t_gdata *game);
-int close_win(t_gdata *game);
-void check_movement(int new_x, int new_y, t_gdata *game);
+int		keypress(int key, t_gdata *game);
+int		close_win(t_gdata *game);
+void	check_movement(int new_x, int new_y, t_gdata *game);
 
-void load_map(t_gdata *game);
-void put_image(int x, int y, char texture, t_gdata *game);
-void init_textures(t_gdata *game);
-void load_texture(void **texture, char *path, t_gdata *game);
-
+void	load_map(t_gdata *game);
+void	put_image(int x, int y, char texture, t_gdata *game);
+void	init_textures(t_gdata *game);
+void	load_texture(void **texture, char *path, t_gdata *game);
 
 #endif

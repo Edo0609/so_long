@@ -72,7 +72,7 @@ char	*update_storage(char *storage)
 {
 	size_t	i;
 	size_t	j;
-	char	*new_storage;
+	char	*new;
 
 	i = 0;
 	j = 0;
@@ -80,15 +80,15 @@ char	*update_storage(char *storage)
 		return (ft_free(storage));
 	while (storage[i] != '\n')
 		i++;
-	new_storage = (char *)malloc(sizeof(char) * (ft_strlen_gnl(storage) - i + 1));
-	if (!new_storage)
+	new = (char *)malloc(sizeof(char) * (ft_strlen_gnl(storage) - i + 1));
+	if (!new)
 		return (ft_free(storage));
 	i++;
 	while (storage[i] != '\0')
-		new_storage[j++] = storage[i++];
-	new_storage[j] = '\0';
+		new[j++] = storage[i++];
+	new[j] = '\0';
 	free(storage);
-	return (new_storage);
+	return (new);
 }
 
 char	*get_next_line(int fd)

@@ -12,9 +12,9 @@
 
 #include <so_long.h>
 
-void check_chars(t_map *map, char *line)
+void	check_chars(t_map *map, char *line)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (line[++i])
@@ -37,11 +37,11 @@ void check_chars(t_map *map, char *line)
 	}
 }
 
-void fill_map(t_map *map)
+void	fill_map(t_map *map)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	j = -1;
 	while (map->copy[++j])
 	{
@@ -64,12 +64,12 @@ void fill_map(t_map *map)
 	}
 }
 
-void valid_check(t_map *map)
+void	valid_check(t_map *map)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while(map->map[++i])
+	i = -1;
+	while (map->map[++i])
 		check_chars(map, map->map[i]);
 	if (map->player > 1 || map->player == 0)
 		map_error("there must be exactly one player!", map);
@@ -87,55 +87,55 @@ void valid_check(t_map *map)
 	check_chars(map, "");
 }
 
-void get_dimensions(t_map *map)
+void	get_dimensions(t_map *map)
 {
-    char *line;
+	char	*line;
 
-    line = get_next_line(map->fd);
-    if (!line)
-		map_error("map is empty", map);
-	while (line[0] == '\n')
+	line = get_next_line(map->fd);
+	while (line && line[0] == '\n')
 	{
 		free(line);
 		line = get_next_line(map->fd);
+		map->start++;
 	}
-    if (ft_strchr(line, '\n'))
-        map->width = ft_strlen(line) - 1;
-    else
-        map->width = ft_strlen(line);
-    check_rectangle(map, "", line);
-    if ((map->width < 3 && map->height > 2) ||
-     (map->height < 3 && map->width > 2))
-        map_error("Map is too small!", map);
-    map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
-    map->map[map->height] = '\0';
-    close(map->fd);
+	if (!line)
+		map_error("map is empty", map);
+	if (ft_strchr(line, '\n'))
+		map->width = ft_strlen(line) - 1;
+	else if (line)
+		map->width = ft_strlen(line);
+	check_rectangle(map, "", line);
+	if ((map->width < 3 && map->height > 2)
+		|| (map->height < 3 && map->width > 2))
+		map_error("Map is too small!", map);
+	map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
+	map->map[map->height] = '\0';
+	close(map->fd);
 }
 
-void readmap(char *path, t_map *map)
+void	readmap(char *path, t_map *map)
 {
-    size_t i;
-    char *newstr;
-    char *line;
+	size_t	i;
+	char	*newstr;
+	char	*line;
 
-    map->fd = open(path, O_RDONLY);
-    if (map->fd == -1)
-        map_error("Error opening file, file might not exist", map);
-    newstr = ft_strrchr(path, '.');
-    if (ft_strncmp(newstr, ".ber", 5) != 0)
-        map_error("Bad extension. Maps should have \".ber\" extension", map);
-    i = 0;
-    get_dimensions(map);
-    map->fd = open(path, O_RDONLY);
+	map->fd = open(path, O_RDONLY);
+	if (map->fd == -1)
+		map_error("Error opening file, file might not exist", map);
+	newstr = ft_strrchr(path, '.');
+	if (ft_strncmp(newstr, ".ber", 5) != 0)
+		map_error("Bad extension. Maps should have \".ber\" extension", map);
+	i = -1;
+	get_dimensions(map);
+	map->fd = open(path, O_RDONLY);
 	line = get_next_line(map->fd);
-	map->map[i++] = ft_substr(line, 0, map->width);
-    while (line || i < map->height)
-    {
-        free(line);
-        line = get_next_line(map->fd);
-		if (i < map->height)
-        	map->map[i] = ft_substr(line, 0, map->width);
-		i++;
-    }
-    close(map->fd);
+	while (line && (++i) < map->height + map->start)
+	{
+		if (line[0] != '\n')
+			map->map[i - map->start] = ft_substr(line, 0, map->width);
+		free(line);
+		line = get_next_line(map->fd);
+	}
+	free_gnl(&line, map);
+	close(map->fd);
 }
