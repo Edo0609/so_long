@@ -90,6 +90,7 @@ void	valid_check(t_map *map)
 void	get_dimensions(t_map *map)
 {
 	char	*line;
+	size_t	aux_w;
 
 	line = get_next_line(map->fd);
 	while (line && line[0] == '\n')
@@ -104,7 +105,9 @@ void	get_dimensions(t_map *map)
 		map->width = ft_strlen(line) - 1;
 	else if (line)
 		map->width = ft_strlen(line);
+	aux_w = map->width;
 	check_rectangle(map, "", line);
+	map->width = aux_w;
 	if ((map->width < 3 && map->height > 2)
 		|| (map->height < 3 && map->width > 2))
 		map_error("Map is too small!", map);
@@ -121,7 +124,7 @@ void	readmap(char *path, t_map *map)
 
 	map->fd = open(path, O_RDONLY);
 	if (map->fd == -1)
-		map_error("Error opening file, file might not exist", map);
+		map_error("Error opening file.", map);
 	newstr = ft_strrchr(path, '.');
 	if (ft_strncmp(newstr, ".ber", 5) != 0)
 		map_error("Bad extension. Maps should have \".ber\" extension", map);

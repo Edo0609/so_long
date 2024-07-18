@@ -27,8 +27,10 @@ void	check_rectangle(t_map *map, char *aux, char *line)
 	{
 		free(line);
 		line = get_next_line(map->fd);
-		if (line && line[0] != '\n')
+		if (line)
 		{
+			if (line[0] == '\n')
+				map->width = 0;
 			if (ft_strchr(line, '\n'))
 				aux = ft_substr(line, 0, ft_strlen(line) - 1);
 			else
