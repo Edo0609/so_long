@@ -15,21 +15,23 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@make -C libft
+	@echo "libft compiled"
+	@make -C mlx_linux
+	@echo "minilibx compiled"
 	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) -o $(NAME)
 
 clean:
-	make clean -C libft 
+	make clean -C libft
+	make clean -C mlx_linux
 	rm -f $(OBJ)
 
 fclean: clean
 	make fclean -C libft
+	make clean -C mlx_linux
 	rm -f $(NAME)
 
 re: fclean all
 
-libft:
-	@make -C libft
-	@echo "libft compiled"
-
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re
 	

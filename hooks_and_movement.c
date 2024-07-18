@@ -19,9 +19,10 @@ void	check_movement(int new_x, int new_y, t_gdata *game)
 		if (game->map.map[new_y][new_x] != 'E' ||
 		(game->map.map[new_y][new_x] == 'E' && game->c == 0))
 		{
-			ft_printf("Move Counter: %d\n", ++game->moves);
+			ft_printf("Waddle Counter: %d\n", ++game->moves);
 			if (game->map.map[new_y][new_x] == 'E' && game->c == 0)
-				end_game("You Win! Congratulations!", EXIT_SUCCESS, game);
+				end_game("So long little penguin! You Win!",
+					EXIT_SUCCESS, game);
 			if (game->map.map[new_y][new_x] == 'C')
 				game->c--;
 			game->map.map[game->y_pos][game->x_pos] = '0';
