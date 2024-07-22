@@ -87,6 +87,8 @@ void	fill_map(t_map *map);
 
 void	init_game(t_gdata *game);
 void	init_map(t_map *map);
+void	init_game_to_null(t_gdata *game);
+void	print_start(void);
 
 int		keypress(int key, t_gdata *game);
 int		close_win(t_gdata *game);

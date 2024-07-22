@@ -95,6 +95,7 @@ void	print_map(char **map)
 	int	i;
 
 	i = -1;
+	ft_printf("Map visualization:\n");
 	while (map[++i])
-		ft_printf("%s\n", map[i]);
+		ft_printf("\t\t\t%s\n", map[i]);
 }

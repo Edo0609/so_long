@@ -41,6 +41,14 @@ void	init_game_to_null(t_gdata *game)
 	game->exit_y = 0;
 }
 
+void	print_start(void)
+{
+	ft_printf("\nYou are the first of your species, wandering along");
+	ft_printf("\nthe ice cold region of Antarctica, and on your...");
+	ft_printf("\nshoulders??? rests the survival of all penguins to");
+	ft_printf("\ncome... go! and eat all the fish, little culver...\n\n");
+}
+
 void	init_game(t_gdata *game)
 {
 	int	width;
@@ -55,12 +63,16 @@ void	init_game(t_gdata *game)
 	if (!game->mlx)
 		end_game("Failed loading mlx interface.", EXIT_FAILURE, game);
 	mlx_get_screen_size(game->mlx, &screen_x, &screen_y);
+	if (screen_x < width || screen_y < height)
+		end_game("Map is too big for this screen size.", EXIT_FAILURE, game);
 	init_textures(game);
 	game->win = mlx_new_window(game->mlx, width, height,
-			"Antarctica, 25.237.102 AC");
+			"Antarctica, 25.237.102 BCE");
 	if (!game->win || width <= 0 || height <= 0)
 		end_game("Failed creating window.", EXIT_FAILURE, game);
 	load_map(game);
+	print_map(game->map.map);
+	print_start();
 	mlx_hook(game->win, 02, 1L << 0, keypress, game);
 	mlx_hook(game->win, 17, 1L << 17, close_win, game);
 	mlx_loop(game->mlx);
@@ -78,13 +90,7 @@ int	main(int ac, char **av)
 	init_map(&game.map);
 	readmap(av[1], &game.map);
 	check_borders_and_tiles(&game.map);
-	ft_printf("Map visualization:\n");
-	print_map(game.map.map);
 	valid_check(&game.map);
-	ft_printf("\nYou are the first of your species, wandering along");
-	ft_printf("\nthe ice cold region of Antarctica, and on your...");
-	ft_printf("\nshoulders??? rests the survival of all penguins to");
-	ft_printf("\ncome... go! and eat all the fish, little culver...\n\n");
 	init_game(&game);
 	return (0);
 }

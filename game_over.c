@@ -68,7 +68,8 @@ void	end_game(char *str, int status, t_gdata *game)
 	}
 	if (status == EXIT_FAILURE)
 		ft_printf("Error:\n");
-	if (status == EXIT_SUCCESS)
+	if (status == EXIT_SUCCESS && (game->x_pos == game->exit_x
+			&& game->y_pos == game->exit_y))
 	{
 		ft_printf("\n...and with that, the fate of the penguin species was\n");
 		ft_printf("sealed, and humans of today will bear witness to the\n");

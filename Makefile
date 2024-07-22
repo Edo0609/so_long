@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Iincludes -Imlx_linux
 
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -Llibft
-MLXFLAGS += -lftprintf -lXext -lX11 -lm -lz -g3
+MLXFLAGS += -lftprintf -lXext -lX11 -lm -lz -g3 -fsanitize=address
 
 SRC = check_map.c game_over.c hooks_and_movement.c load_textures.c \
 	  map_utils.c so_long.c
